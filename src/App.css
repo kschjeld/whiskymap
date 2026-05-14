@@ -4,6 +4,14 @@
   padding: 0;
 }
 
+/* Prevent Leaflet's default DivIcon styles from clipping custom markers */
+.leaflet-div-icon {
+  background: transparent !important;
+  border: none !important;
+  width: auto !important;
+  height: auto !important;
+}
+
 html, body, #root {
   height: 100%;
   width: 100%;
@@ -123,16 +131,16 @@ html, body, #root {
 .website-link {
   display: inline-block;
   margin-top: 4px;
-  color: white;
-  background: #2980b9;
   text-decoration: none;
   font-size: 0.8rem;
   font-weight: 600;
   padding: 5px 14px;
   border-radius: 5px;
-  transition: background 0.2s;
+  background: transparent;
+  border: 2px solid;
+  transition: opacity 0.2s;
 }
 
 .website-link:hover {
-  background: #1a6694;
+  opacity: 0.7;
 }

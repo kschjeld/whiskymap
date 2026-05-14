@@ -16,16 +16,26 @@ export function getRegionColor(description: string): string {
   return '#2c3e50'
 }
 
-export function createMarkerIcon(color: string): L.DivIcon {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 36" width="24" height="36">
-    <path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 24 12 24s12-15 12-24C24 5.4 18.6 0 12 0z" fill="${color}" stroke="white" stroke-width="1.5"/>
-    <circle cx="12" cy="12" r="5" fill="white" opacity="0.85"/>
+export function createMarkerIcon(color: string, name: string): L.DivIcon {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 36" width="20" height="36">
+    <!-- Cap -->
+    <rect x="7" y="0" width="6" height="3" rx="1" fill="${color}" stroke="white" stroke-width="1"/>
+    <!-- Neck -->
+    <rect x="7.5" y="3" width="5" height="5" fill="${color}" stroke="white" stroke-width="1"/>
+    <!-- Shoulders: wide square transition -->
+    <path d="M7.5 8 L4 13 L16 13 L12.5 8 Z" fill="${color}" stroke="white" stroke-width="1" stroke-linejoin="round"/>
+    <!-- Body: slightly tapered -->
+    <path d="M4 13 L3.5 34 L16.5 34 L16 13 Z" fill="${color}" stroke="white" stroke-width="1" stroke-linejoin="round"/>
   </svg>`
+  const html = `<div style="display:flex;align-items:center;gap:4px;white-space:nowrap;">
+    ${svg}
+    ${name ? `<span style="font-size:11px;font-weight:600;color:#000;text-shadow:0 0 3px white,0 0 3px white,0 0 3px white;">${name}</span>` : ''}
+  </div>`
   return L.divIcon({
-    html: svg,
+    html,
     className: '',
-    iconSize: [24, 36],
-    iconAnchor: [12, 36],
+    iconSize: undefined,
+    iconAnchor: [10, 36],
     popupAnchor: [0, -36],
   })
 }
