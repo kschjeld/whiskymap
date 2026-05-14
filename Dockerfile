@@ -23,8 +23,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Allow nginx to run as non-root user
 RUN mkdir -p /var/cache/nginx /var/run \
     && chown -R nginx:nginx /var/cache/nginx /var/run /usr/share/nginx/html /etc/nginx \
-    && chmod -R 755 /var/cache/nginx /var/run \
-    && chmod -R 755 /var/run
+    && chmod -R 755 /var/cache/nginx /var/run
 
 USER nginx
 
