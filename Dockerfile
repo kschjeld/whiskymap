@@ -18,7 +18,14 @@ RUN rm -rf /usr/share/nginx/html/*
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # nginx config: serve SPA with fallback to index.html for client-side routing
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 80
+# Allow nginx to run as non-root user
+RUN mkdir -p /var/cache/nginx /var/run \
+    && chown -R nginx:nginx /var/cache/nginx /var/run /usr/share/nginx/html /etc/nginx \
+    && chmod -R 755 /var/cache/nginx /var/run
+
+USER nginx
+
+EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
