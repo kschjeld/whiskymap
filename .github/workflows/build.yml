@@ -64,12 +64,12 @@ jobs:
         if: github.event_name != 'pull_request'
         run: |
           helm package helm/whiskymap \
-            --version "${{ steps.meta.outputs.tags }}" \
+            --version "v${{ steps.meta.outputs.tags }}" \
             --app-version "${{ steps.meta.outputs.tags }}" \
             --destination /tmp/helm-charts
 
       - name: Push Helm chart to GHCR
         if: github.event_name != 'pull_request'
         run: |
-          helm push /tmp/helm-charts/whiskymap-${{ steps.meta.outputs.tags }}.tgz \
+          helm push /tmp/helm-charts/whiskymap-v${{ steps.meta.outputs.tags }}.tgz \
             oci://${{ env.REGISTRY }}/${{ github.repository_owner }}/charts
