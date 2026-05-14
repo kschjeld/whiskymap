@@ -70,9 +70,9 @@ autoscaling:
 httpRoute:
   enabled: true
   parentRefs:
-    - name: platform-gateway
-      # namespace: default   # uncomment if gateway is in a different namespace
-  hostname: whiskymap.bt71.eu
+    - name: internal-gateway
+      namespace: platform
+  hostname: whiskymap.dev.bt71.eu
 
 nodeSelector: {}
 tolerations: []
