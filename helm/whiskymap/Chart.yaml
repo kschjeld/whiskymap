@@ -1,0 +1,6 @@
+apiVersion: v2
+name: whiskymap
+description: Scottish whisky distillery map — React SPA served via nginx
+type: application
+version: 0.1.0
+appVersion: "latest"
