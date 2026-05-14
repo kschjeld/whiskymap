@@ -3,7 +3,7 @@ replicaCount: 1
 
 image:
   # Override with your actual ghcr.io image path, e.g. ghcr.io/<owner>/whiskymap
-  repository: ghcr.io/OWNER/whiskymap
+  repository: ghcr.io/kschjeld/whiskymap
   pullPolicy: IfNotPresent
   # Overrides appVersion from Chart.yaml when set
   tag: ""
