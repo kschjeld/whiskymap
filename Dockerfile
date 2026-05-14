@@ -9,7 +9,7 @@ COPY . .
 RUN npm run build
 
 # ---- Serve stage ----
-FROM nginx:1.27-alpine AS runner
+FROM nginx:1.31.0-alpine AS runner
 
 # Remove default nginx static assets
 RUN rm -rf /usr/share/nginx/html/*
