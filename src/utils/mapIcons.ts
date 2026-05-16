@@ -16,6 +16,14 @@ export function getRegionColor(description: string): string {
   return '#2c3e50'
 }
 
+/** Returns the canonical region key (matching regionColors) or 'Other'. */
+export function getRegionName(description: string): string {
+  for (const key of Object.keys(regionColors)) {
+    if (description.toLowerCase().includes(key.toLowerCase())) return key
+  }
+  return 'Other'
+}
+
 export function createMarkerIcon(color: string, name: string): L.DivIcon {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 36" width="20" height="36">
     <!-- Cap -->

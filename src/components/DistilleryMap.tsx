@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaf
 import { useState } from 'react'
 import 'leaflet/dist/leaflet.css'
 import type { Distillery } from '../types'
-import { getRegionColor, createMarkerIcon } from '../utils/mapIcons'
+import { getRegionColor, getRegionName, createMarkerIcon } from '../utils/mapIcons'
 
 // Fix leaflet default icon issue with bundlers
 delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl
@@ -15,6 +15,7 @@ L.Icon.Default.mergeOptions({
 
 type Props = {
   distilleries: Distillery[]
+  activeRegions: Set<string>
 }
 
 const LABEL_ZOOM_THRESHOLD = 11
@@ -24,8 +25,10 @@ function ZoomTracker({ onZoom }: { onZoom: (z: number) => void }) {
   return null
 }
 
-export default function DistilleryMap({ distilleries }: Props) {
+export default function DistilleryMap({ distilleries, activeRegions }: Props) {
   const [zoom, setZoom] = useState(6)
+
+  const visible = distilleries.filter((d) => activeRegions.has(getRegionName(d.Description)))
 
   return (
     <MapContainer center={[57.0, -4.2]} zoom={6} className="map">
@@ -34,7 +37,7 @@ export default function DistilleryMap({ distilleries }: Props) {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <ZoomTracker onZoom={setZoom} />
-      {distilleries.map((d) => (
+      {visible.map((d) => (
         <Marker
           key={d.Name}
           position={[parseFloat(d.Lat), parseFloat(d.Lng)]}
